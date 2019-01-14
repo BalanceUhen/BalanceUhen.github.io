@@ -8,8 +8,6 @@ task :new do
     @url = STDIN.gets.chomp
     puts "请输入 post 标题："
     @name = STDIN.gets.chomp
-    puts "请输入 post 子标题："
-    @subtitle = STDIN.gets.chomp
     puts "请输入 post 分类，以空格分隔："
     @categories = STDIN.gets.chomp
     puts "请输入 post 标签："
@@ -26,12 +24,11 @@ task :new do
             file.puts "---"
             file.puts "layout: post"
             file.puts "title: #{@name}"
-            file.puts "subtitle: #{@subtitle}"
-            file.puts "author: pizida"
+            file.puts "author: When"
             file.puts "date: #{Time.now}"
             file.puts "categories: #{@categories}"
             file.puts "tag: #{@tag}"
             file.puts "---"
     end
-    exec "vi #{@post_name}"
+    exec "subl #{@post_name}"
 end
