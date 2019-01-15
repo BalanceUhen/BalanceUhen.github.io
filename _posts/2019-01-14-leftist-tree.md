@@ -20,8 +20,6 @@ tag: Data structure
 - 默认堆为小根堆
 - 一个节点的值为$val_i$，左子树为$l_i$，右子树为$r_i$
 
-# 实现
-
 # 定义
 
 - 一个节点为*外节点*当且仅当他的一个儿子是空节点
@@ -56,3 +54,129 @@ tag: Data structure
 
 时间复杂度似乎是均摊$O(\log n)$的，但是**据说**常数比较大，而且还有可能被卡，但是写起来十分的爽就好了
 
+# 代码实现
+
+题目是洛谷的可并堆模板题
+
+## 左偏树代码
+
+```cpp
+// It's not logic, but magic ~~
+#include <bits/stdc++.h>
+typedef long long ll;
+
+ll read() {
+    static char c;
+    static ll x;
+    int flag = 1;
+    while (c = getchar(), !isdigit(c)) if (c == '-') flag = 0;
+    x = c - '0';
+    while (c = getchar(), isdigit(c))x = x * 10 + c - '0';
+    return flag ? x : -x;
+}
+
+#define N 100100
+int n, m;
+int ns[N], fa[N], lc[N], rc[N], dis[N];
+
+int find(int x) {return fa[x] ? find(fa[x]) : x;}
+int merge(int x, int y) {
+    if (!(x && y)) return x | y;
+    if (ns[x] > ns[y] || (ns[x] == ns[y] && x > y)) std::swap(x, y);
+    rc[x] = merge(rc[x], y);
+    if (dis[rc[x]] > dis[lc[x]]) std::swap(lc[x], rc[x]);
+    dis[x] = dis[rc[x]] + 1;
+    fa[lc[x]] = fa[rc[x]] = x;
+    return x;
+}
+void pop(int x) {
+    ns[x] = -1;
+    fa[lc[x]] = fa[rc[x]] = 0;
+    merge(lc[x], rc[x]);
+    lc[x] = rc[x] = 0;
+    fa[x] = 0;
+}
+
+signed main() {
+    n = read(), m = read();
+    for (int i = 1; i <= n; ++i) ns[i] = read();
+    for (int i = 1; i <= m; ++i) {
+        if (read() == 1) {
+            int x = read(), y = read();
+            int fx = find(x), fy = find(y);
+            if (ns[fx] == -1 || ns[fy] == -1) continue;
+            if (fx == fy) continue;
+            merge(fx, fy);
+        } else {
+            int x = read();
+            x = find(x);
+            printf("%d\n", ns[x]);
+            pop(x);
+        }
+    }
+}
+
+```
+
+可以看到核心函数pop()和merge()还是比较简短的
+
+## 斜堆代码
+
+```c++
+// It's not logic, but magic ~~
+#include <bits/stdc++.h>
+typedef long long ll;
+
+ll read() {
+    static char c;
+    static ll x;
+    int flag = 1;
+    while (c = getchar(), !isdigit(c)) if (c == '-') flag = 0;
+    x = c - '0';
+    while (c = getchar(), isdigit(c))x = x * 10 + c - '0';
+    return flag ? x : -x;
+}
+
+#define N 100100
+int n, m;
+int ns[N], fa[N], lc[N], rc[N];
+
+int find(int x) {return fa[x] ? find(fa[x]) : x;}
+int merge(int x, int y) {
+    if (!(x && y)) return x | y;
+    if (ns[x] > ns[y] || (ns[x] == ns[y] && x > y)) std::swap(x, y);
+    rc[x] = merge(rc[x], y);
+    std::swap(lc[x], rc[x]);
+    fa[lc[x]] = fa[rc[x]] = x;
+    return x;
+}
+void pop(int x) {
+    ns[x] = -1;
+    fa[lc[x]] = fa[rc[x]] = 0;
+    merge(lc[x], rc[x]);
+    lc[x] = rc[x] = 0;
+    fa[x] = 0;
+}
+
+signed main() {
+    n = read(), m = read();
+    for (int i = 1; i <= n; ++i) ns[i] = read();
+    for (int i = 1; i <= m; ++i) {
+        if (read() == 1) {
+            int x = read(), y = read();
+            int fx = find(x), fy = find(y);
+            if (ns[fx] == -1 || ns[fy] == -1) continue;
+            if (fx == fy) continue;
+            merge(fx, fy);
+        } else {
+            int x = read();
+            x = find(x);
+            printf("%d\n", ns[x]);
+            pop(x);
+        }
+    }
+}
+
+```
+
+感觉代码并没有省太多，但是节省了一个数组的感觉还会很不错的
