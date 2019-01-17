@@ -458,7 +458,7 @@ gitalk:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-#google_site_verification:
+google_site_verification: 6segaF2KvqPJy7Me5b5GhgHf5AhOK_dOMLgV_0mMWfI
 
 # Google Analytics
 #google_analytics:
@@ -585,12 +585,12 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto
   # show top n results per article, show all results by setting to -1
-  top_n_per_article: 1
+  top_n_per_article: 10
 
 # External URL with BASE64 encrypt & decrypt
 # Usage: {% exturl text url "title" %}
