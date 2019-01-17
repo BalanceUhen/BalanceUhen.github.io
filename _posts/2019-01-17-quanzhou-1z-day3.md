@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2019泉州一中基地校集训Day1
+title: 2019泉州一中基地校集训Day3
 author: When
 date: 2019-01-17 19:16:23 +0800
 categories: Competition Diary
