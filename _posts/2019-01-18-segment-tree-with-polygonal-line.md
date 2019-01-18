@@ -7,7 +7,7 @@ categories: Segment-tree Template Trick
 tag: Data structure
 ---
 
-发现线段树有好多奇妙的技巧:happy:，能学一点是一点
+发现线段树有好多奇妙的技巧:unamused:，能学一点是一点
 
 前天ct讲课的时候给出了线段树维护折线的一种方法，今天上午zzx出的题目第二题就是用线段树维护最长上升子序列来优化$dp$:cold_sweat:，虽然暴力蹭分就有$44pts$
 
