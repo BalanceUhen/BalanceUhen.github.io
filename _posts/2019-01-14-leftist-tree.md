@@ -4,7 +4,7 @@ title: 左偏树
 subtitle: 
 author: When
 date: 2019-01-14 16:33:51 +0800
-categories: Leftist-Tree Template
+categories: Leftist-tree Template
 tag: Data structure
 ---
 
